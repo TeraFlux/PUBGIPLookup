@@ -36,7 +36,7 @@ foreach($remoteIP in $RemoteIPList){
     $decimalIP=IPToDecimal $remoteIP
     foreach($AWSRange in $AWSEndpointData){
         if($decimalIP -gt $AWSRange.StartRange -and $decimalIP -lt $AWSRange.EndRange){
-            Write-Output "$remoteIP - $($AWSRange.EndRange)"
+            Write-Output "$remoteIP - $($AWSRange.region)"
         }
     }
 }
