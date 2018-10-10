@@ -1,4 +1,4 @@
-﻿function getRemoteIPs($remoteIPs){
+﻿function filterRemoteIPs($remoteIPs){
     $remoteIPList=@()
     foreach($ip in $remoteIPs){
         if($ip -ne "0.0.0.0" -and $ip -notmatch "\:" -and $ip -notmatch "127.0.0.1"){
@@ -32,7 +32,7 @@ foreach($AWSEndpoint in $AWSEndpoints){
 
 try {
     $processId=(get-process "TslGame" -ErrorAction Stop).Id
-    $RemoteIPList=(Get-NetTCPConnection -OwningProces $processId).RemoteAddress | % {getRemoteIPs $_}
+    $RemoteIPList=(Get-NetTCPConnection -OwningProces $processId).RemoteAddress | select -Unique | % {filterRemoteIPs $_}
     foreach($remoteIP in $RemoteIPList){
         $decimalIP=IPToDecimal ($remoteIP.IPAddressToString)
         foreach($AWSRange in $AWSEndpointData.keys){
