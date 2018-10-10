@@ -1,4 +1,4 @@
-# Project Title
+# AWS Region Finder
 
 Powershell script that compares the IP addresses your machine is currently connected to against the publicly available AWS regions, so that you can see what region you are connected to. AWS IP ranges pulled from here: 
 https://ip-ranges.amazonaws.com/ip-ranges.json
