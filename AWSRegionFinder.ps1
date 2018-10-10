@@ -1,14 +1,14 @@
 ﻿function getRemoteIPs($remoteIPs){
     $remoteIPList=@()
     foreach($ip in $remoteIPs){
-        if($ip -ne "0.0.0.0" -and $ip -notmatch "\:"){
+        if($ip -ne "0.0.0.0" -and $ip -notmatch "\:" -and $ip -notmatch "127.0.0.1"){
             $remoteIPList+=[IPAddress]$ip
         }
     }
     return $remoteIPList
 }
 
-function IPToDecimal($ip){
+function IPToDecimal([IPAddress]$ip){
     $bytes = $ip.GetAddressBytes()
     if ([BitConverter]::IsLittleEndian) {
             [Array]::Reverse($bytes)
@@ -28,12 +28,11 @@ foreach($AWSEndpoint in $AWSEndpoints){
         "EndRange"=($startDec+$networkAddresses);
         "AWSRegion"=$AWSEndpoint.region
     }
-
 }
 
 $RemoteIPList=(Get-NetTCPConnection).RemoteAddress | % {getRemoteIPs $_}
 foreach($remoteIP in $RemoteIPList){
-    $decimalIP=IPToDecimal $remoteIP
+    $decimalIP=IPToDecimal ($remoteIP.IPAddressToString)
     foreach($AWSRange in $AWSEndpointData){
         if($decimalIP -gt $AWSRange.StartRange -and $decimalIP -lt $AWSRange.EndRange){
             Write-Output "$remoteIP - $($AWSRange.region)"
