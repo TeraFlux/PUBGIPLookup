@@ -33,9 +33,12 @@ foreach($AWSEndpoint in $AWSEndpoints){
 $RemoteIPList=(Get-NetTCPConnection).RemoteAddress | % {getRemoteIPs $_}
 foreach($remoteIP in $RemoteIPList){
     $decimalIP=IPToDecimal ($remoteIP.IPAddressToString)
-    foreach($AWSRange in $AWSEndpointData){
-        if($decimalIP -gt $AWSRange.StartRange -and $decimalIP -lt $AWSRange.EndRange){
-            Write-Output "$remoteIP - $($AWSRange.region)"
+    foreach($AWSRange in $AWSEndpointData.keys){
+        $startRange=$AWSEndpointData[$AWSRange].StartRange
+        $endRange=$AWSEndpointData[$AWSRange].EndRange
+        $region=$AWSEndpointData[$AWSRange].AWSRegion
+        if($decimalIP -gt $startRange -and $decimalIP -lt $endRange){
+            Write-Output "$remoteIP - $region"
         }
     }
 }
