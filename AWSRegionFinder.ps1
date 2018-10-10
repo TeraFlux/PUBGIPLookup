@@ -22,9 +22,9 @@ foreach($AWSEndpoint in $AWSEndpoints){
     [IPAddress]$ipAddress=$AWSEndpoint.ip_prefix.split("/")[0]
     [int]$slashNotation=$AWSEndpoint.ip_prefix.split("/")[1]
     $networkAddresses=[math]::pow(2,32-$slashNotation)
-
+    $startDec=(IPToDecimal $ipAddress)
     $AWSEndpointData[$AWSEndpoint.ip_prefix]=@{
-        "StartRange"=(IPToDecimal $ipAddress);
+        "StartRange"=$startDec;
         "EndRange"=($startDec+$networkAddresses);
         "AWSRegion"=$AWSEndpoint.region
     }
