@@ -10,6 +10,7 @@ To run the script, either copy the contents and paste them into a new powershell
 
 ### Prerequisites
 
+You must launch internet explorer and complete the setup process for this script to work
 Powershell 5+
 
 ## License
