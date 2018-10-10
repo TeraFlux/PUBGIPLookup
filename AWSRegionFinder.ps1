@@ -1,7 +1,7 @@
 ﻿function filterRemoteIPs($remoteIPs){
     $remoteIPList=@()
     foreach($ip in $remoteIPs){
-        if($ip -ne "0.0.0.0" -and $ip -notmatch "\:" -and $ip -notmatch "127.0.0.1"){
+        if($ip -ne "0.0.0.0" -and $ip -notmatch "\:" -and $ip -ne "127.0.0.1"){
             $remoteIPList+=[IPAddress]$ip
         }
     }
