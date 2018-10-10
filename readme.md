@@ -5,7 +5,8 @@ https://ip-ranges.amazonaws.com/ip-ranges.json
 
 ## Getting Started
 
-Either copy the contents and paste them into a new powershell window, or save the .ps1 file locally and run it within a powershell console.
+Launch PUBG, enter a game, then run the script.
+To run the script, either copy the contents and paste them into a new powershell window, or save the .ps1 file locally and run it within a powershell console.
 
 ### Prerequisites
 
