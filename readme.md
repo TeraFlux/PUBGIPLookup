@@ -1,4 +1,4 @@
-# PUBG AWS Region Finder
+# PUBG IP Lookup
 
 Powershell script that finds the IP address your pubg game is connected to, and the corresponding region that's in.
 
