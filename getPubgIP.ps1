@@ -45,9 +45,9 @@ Process{
     foreach ($port in $udpPorts) {
         if ($port -eq 27015) {continue}
         $args = ("-i", $interfaceId, "-c", 1, "-a", "duration:1", "-f", "src port $port", "-n", "-T", "fields", "-e", "ip.dst")
-        $ip = & "C:\Program Files\Wireshark\tshark.exe" $args 2> Out-Null
+        $ip = & "C:\Program Files\Wireshark\tshark.exe" $args 2> $null
         if($ip -ne $null){
-            $ipinfo=invoke-webrequest "http://ip-api.com/json/$ip" | ConvertFrom-Json
+            $ipinfo=Invoke-RestMethod "http://ip-api.com/json/$ip"
             $formattedRegion="{0}, {1} [{2}]" -f $ipinfo.city, $ipinfo.region, $ipinfo.country
             Write-Output "$ip - $formattedRegion"
         }
